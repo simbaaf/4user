@@ -1,79 +1,77 @@
 const express = require("express")
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+const users = express.Router()
 const cors = require("cors")
-const Users = express.Router()
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
+// import user's Model
+const User = require("../models/user")
+users.use(cors())
 
+process.env.SECRET_KEY = 'secret'
 
-const user = require("../models/user")
-Users.use(cors())
-
-process.env.SECRET_KEY = 'secret' 
-Users.post('/register', (req, res) => {
+// every submit in register form will go here 
+users.post("/register", (req, res) => {
     const today = new Date()
     const userData = {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
         password: req.body.password,
-        created: today,
-
+        created: today
     }
 
-    user.findOne({
-        email: req.body.email,
+    User.findOne({
+        email: req.body.email
     })
-    .then(user => {
-        if(!user) {
-            bcrypt.hash(req.body.password, 10, (err, hash) => {
-                userData.password= hash   
-                user.create(userData)
-                .then(user => {
-                    res.json({status: user.email + " was created "})
-                    
-               })
-                .catch(err =>{
-                    err.send('error: ' + err.message)
-                }) 
-           })
-
-      } else {
-            res.json({error: "user already exist "})
-    }
-  }).catch(err =>{
-      res.send("error: "  + err )
-  })
-})
-
-Users.post('/login', (req, res) => {
-    user.findOne({
-        email : req.body.email
-    })
-    .then(user => {
-        if(user) {
-            if(bcrypt.compareSync(req.body.password, user.password)) {
-                const payload = {
-                    _id : user._id,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    email: user.email
-                }
-                var token = jwt.sign(payload, process.env.SECRET_KEY, {
-                    expiresIn: 1440
+        .then(user => {
+            if (!user) {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                    userData.password = hash
+                    User.create(userData)
+                        .then(user => {
+                            res.json({ status: user.email + ' registered'})
+                        })
+                        .catch(err => {
+                            res.send('error: ' + err)
+                        })
                 })
-                res.send(token)
             } else {
-                res.json({error: + "User does not exist "})
+                res.json({ error: 'User already exists' })
             }
-            
-      }else {
-            res.json({error: + "User does not exist "})
-        } 
-    })
-    .catch(err => {
-        res.send('error : ' + err)
-    })
+        })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
 })
 
+//every submit login form will go here 
+users.post('/login', (req, res) => {
+    User.findOne({
+        email: req.body.email
+    })
+        .then(user => {
+            if (user) {
+                if (bcrypt.compareSync(req.body.password, user.password)) {
+                    const payload = {
+                        _id: user._id,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        email: user.email
+                    }
+                    let token = jwt.sign(payload, process.env.SECRET_KEY, {
+                        expiresIn: 1440
+                    })
+                    res.send(token)
+                } else {
+                    res.json({ error: 'User does not exist' })
+                }
+            } else {
+                res.json({ error: 'User does not exist' })
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err)
+        })
+})
 
-module.exports= Users
+module.exports = users

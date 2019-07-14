@@ -10,6 +10,7 @@ users.use(cors())
 process.env.SECRET_KEY = 'secret'
 
 // every submit in register form will go here 
+
 users.post("/register", (req, res) => {
     const today = new Date()
     const userData = {
@@ -29,7 +30,7 @@ users.post("/register", (req, res) => {
                     userData.password = hash
                     User.create(userData)
                         .then(user => {
-                            res.json({ status: user.email + ' registered'})
+                            res.json({ status: user.first_name + ' registered'})
                         })
                         .catch(err => {
                             res.send('error: ' + err)

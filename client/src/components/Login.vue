@@ -24,7 +24,7 @@
                 required></v-text-field>
             </v-flex>
             <v-flex class="text-xs-center" mt-5>
-              <v-btn color="primary" type="submit">Sign In</v-btn>
+              <v-btn color="primary" @click="login">Sign In</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -34,9 +34,11 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../../config/axios'
 import router from '../router'
 import EventBus from './EventBus'
+
+
 export default {
   data () {
     return {
@@ -50,6 +52,7 @@ export default {
         email: this.email,
         password: this.password
       }).then(res => {
+        alert("vgfgbn")
         localStorage.setItem('usertoken', res.data)
         this.email = ''
         this.password = ''

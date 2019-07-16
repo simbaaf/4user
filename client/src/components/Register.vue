@@ -46,7 +46,7 @@
                 ></v-text-field>
             </v-flex>
             <v-flex class="text-xs-center" mt-5>
-              <v-btn color="primary" type="submit">Sign Up</v-btn>
+              <v-btn color="primary" @click="register">Sign Up</v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../../config/axios'
 import router from '../router'
 export default {
   data () {

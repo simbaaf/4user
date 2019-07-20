@@ -2,7 +2,7 @@
 
  It's a basic Single Page application contain the best technologies for authentification user
 
- # Technologies used :  🔥 
+ # Technologies used :fire: :   
 
 ## *front-end* 💎:
 

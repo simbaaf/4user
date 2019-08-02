@@ -1,11 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="container">
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center" mt-5>
         <h1>Sign In</h1>
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 mt-3>
-        <form>
+        <form id="form">
           <v-layout column>
             <v-flex>
               <v-text-field
@@ -52,7 +52,6 @@ export default {
         email: this.email,
         password: this.password
       }).then(res => {
-        alert("vgfgbn")
         localStorage.setItem('usertoken', res.data)
         this.email = ''
         this.password = ''
@@ -68,3 +67,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.container {
+  max-width: 40% !important;
+}
+</style>

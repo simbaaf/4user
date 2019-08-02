@@ -29,6 +29,8 @@
 
 
 # Installation 🥇 
+
+
 *clone the project by the following command* 💯 :   
 ```
 git clone https://github.com/simbaaf/4user.git
@@ -37,28 +39,28 @@ git clone https://github.com/simbaaf/4user.git
 ## *For Client part* 💎 :
 
 
- *1)  Change  into client directory and install  dependencies 👊* : 
+ *1)  Change  into client directory and install  dependencies :*  
 
  ```
  cd 4user/client
  yarn install 
  ```
-*2) start project by the following command 💥 :*
+*2) start project by the following command :*
 
 ```
 yarn serve
 ```
 
-## *For Backend part* 🔥:
+## *For Backend part 🚀* 
 
-*1)  Change  into backend directory and install  dependencies 👊* : 
+*1)  Change  into backend directory and install  dependencies :*  
 
  ```
  cd 4user/backend
 yarn install
  ```
 
-*2) start project by the following command 💥 :*
+*2) start the project by the following command  :*
 
 ```
 yarn dev

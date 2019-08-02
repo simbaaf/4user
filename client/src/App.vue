@@ -61,7 +61,7 @@ export default {
           { title: 'Sign In', path: '/Login', icon: 'lock_open' }
      ]
     }
-  },
+  }
 };
 </script>
 <style>
